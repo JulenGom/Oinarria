@@ -3,6 +3,7 @@
  */
 package ehu.isad;
 
+import ehu.isad.controllers.ui.BigarrenaKud;
 import ehu.isad.controllers.ui.MainKud;
 import ehu.isad.utils.Utils;
 import javafx.application.Application;
@@ -23,22 +24,18 @@ public class App extends Application{
     private Scene sceneMain;
 
     private MainKud mainKud;
+    private BigarrenaKud bigarrenaKud;
 
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         stage = primaryStage;
-        pantailakKargatu();
-
-        stage.setTitle("App Oinarria");
-        //this.ikonoaJarri("");
-        stage.setScene(sceneMain);
-        stage.show();
+        this.mainKargatu();
     }
 
 
     private void ikonoaJarri(String izena){
-        String imagePath = Utils.lortuEzarpenak().getProperty("pathToImages")+izena+"Bihotza.png";
+        String imagePath = Utils.lortuEzarpenak().getProperty("pathToImages")+".png";
         try {
             if(stage.getIcons().size()>0){
                 stage.getIcons().remove(0);
@@ -49,13 +46,18 @@ public class App extends Application{
         }
     }
 
-    private void pantailakKargatu() throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/main.fxml"));
+
+    private void pantailakKargatu(String load) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/"+load+".fxml"));
         mainKud = new MainKud(this);
+        bigarrenaKud = new BigarrenaKud(this);
 
         Callback<Class<?>, Object> controllerFactory = type -> {
             if (type == MainKud.class) {
                 return mainKud ;
+            }
+            else if(type == BigarrenaKud.class){
+                return bigarrenaKud;
             }
             else {// default behavior for controllerFactory:
                 try {
@@ -70,5 +72,21 @@ public class App extends Application{
         loader.setControllerFactory(controllerFactory);
         AppUI = (Parent) loader.load();
         sceneMain = new Scene(AppUI);
+    }
+
+    public void bigarrenaKargatu() throws IOException {
+        this.pantailakKargatu("bigarrena");
+        stage.setTitle("Bigarren pantaila");
+        this.ikonoaJarri("");
+        stage.setScene(sceneMain);
+        stage.show();
+    }
+
+    public void mainKargatu() throws IOException {
+        this.pantailakKargatu("main");
+        stage.setTitle("App Oinarria");
+        this.ikonoaJarri("");
+        stage.setScene(sceneMain);
+        stage.show();
     }
 }
