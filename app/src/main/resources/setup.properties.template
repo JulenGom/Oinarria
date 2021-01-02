@@ -1,3 +1,7 @@
 dbname=MySQL
+user=isad
+password=
+useSSL=FALSE
+serverTimezone=Europe/Madrid
 dbpath=SQLite
 pathToImages=

@@ -28,4 +28,4 @@ hs_err_pid*
 # Ignore Gradle build output directory
 build
 
-/src/main/resources/setup.properties
+app/src/main/resources/setup.properties

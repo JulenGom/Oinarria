@@ -109,6 +109,13 @@ public class MainKud implements Initializable {
         datuaKargatu();
 
 
+        //Izen aldaketa gorde
+        clmn2.setOnEditCommit(
+                t->{
+                    t.getTableView().getItems().get(t.getTablePosition().getRow())
+                            .setIzena(t.getNewValue());
+                });
+
         //Proba1 izena badu ez utzi editatzen
         Callback<TableColumn<Proba, Integer>, TableCell<Proba, Integer>> defaultTextFieldCellFactory
                 = TextFieldTableCell.<Proba, Integer>forTableColumn(new IntegerStringConverter());
@@ -126,6 +133,16 @@ public class MainKud implements Initializable {
                 }
             });
 
+            return cell ;
+        });
+
+
+        //Izena editatu
+        Callback<TableColumn<Proba, String>, TableCell<Proba, String >> defaultTextFieldCellFactoryIzena
+                = TextFieldTableCell.forTableColumn();
+
+        clmn2.setCellFactory(col -> {
+            TableCell<Proba, String> cell = defaultTextFieldCellFactoryIzena.call(col);
             return cell ;
         });
     }
