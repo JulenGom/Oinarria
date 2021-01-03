@@ -9,11 +9,12 @@
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ehu.isad.controllers.ui.MainKud">
    <children>
       <ComboBox fx:id="cmbx" layoutX="209.0" layoutY="303.0" prefWidth="150.0" />
-      <TableView fx:id="tbl" layoutX="184.0" layoutY="51.0" prefHeight="200.0" prefWidth="200.0">
+      <TableView fx:id="tbl" layoutX="113.0" layoutY="51.0" prefHeight="200.0" prefWidth="309.0">
         <columns>
           <TableColumn fx:id="clmn1" prefWidth="75.0" text="C1" />
           <TableColumn fx:id="clmn2" prefWidth="75.0" text="C2" />
             <TableColumn fx:id="clmn3" prefWidth="75.0" text="Column X" />
+            <TableColumn fx:id="clmn4" prefWidth="75.0" text="Column X" />
         </columns>
       </TableView>
       <Button fx:id="btn" layoutX="400.0" layoutY="303.0" mnemonicParsing="false" onAction="#onClick" text="Button" />

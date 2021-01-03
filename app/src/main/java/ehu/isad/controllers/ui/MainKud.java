@@ -4,6 +4,9 @@ import ehu.isad.App;
 import ehu.isad.model.Proba;
 import ehu.isad.utils.Sarea;
 import javafx.application.Platform;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -12,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.geometry.Bounds;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
@@ -50,6 +54,9 @@ public class MainKud implements Initializable {
     private TableColumn<Proba, Integer> clmn3;
 
     @FXML
+    private TableColumn<Proba, Boolean> clmn4;
+
+    @FXML
     private Button btn;
 
     @FXML
@@ -66,8 +73,8 @@ public class MainKud implements Initializable {
 
     private void comboBoxHasieratu(){
         List<Proba> datuLista = new ArrayList<>();
-        datuLista.add(new Proba("Proba1",1));
-        datuLista.add(new Proba("Proba2",2));
+        datuLista.add(new Proba("Proba1",1, true));
+        datuLista.add(new Proba("Proba2",2, true));
         ObservableList<Proba> datuak = FXCollections.observableArrayList(datuLista);
         cmbx.setItems(datuak);
     }
@@ -77,7 +84,9 @@ public class MainKud implements Initializable {
         tbl.setEditable(true);
         clmn2.setCellValueFactory(new PropertyValueFactory<>("Izena"));
         clmn3.setCellValueFactory(new PropertyValueFactory<>("Zenb"));
+        clmn4.setCellValueFactory(new PropertyValueFactory<>("Bool"));
         clmn3.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+
 
         //Datu bat aldatzea
         clmn3.setOnEditCommit(
@@ -103,6 +112,38 @@ public class MainKud implements Initializable {
                     setText(null);
                 }
             };
+        });
+
+        //Check box
+        // ==== Active? (CheckBox) ===
+        clmn4.setCellValueFactory(new Callback<>() {
+
+            @Override
+            public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Proba, Boolean> param) {
+                Proba proba = param.getValue();
+
+                SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(proba.getBool());
+
+                // Note: activeCol.setOnEditCommit(): Not work for
+                // CheckBoxTableCell.
+
+                // When "active?" column change.
+                booleanProp.addListener(new ChangeListener<Boolean>() {
+
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
+                                        Boolean newValue) {
+                        proba.setBool(newValue);
+                    }
+                });
+                return booleanProp;
+            }
+        });
+
+        clmn4.setCellFactory(p -> {
+            CheckBoxTableCell<Proba, Boolean> cell = new CheckBoxTableCell<Proba, Boolean>();
+            cell.setAlignment(Pos.CENTER);
+            return cell;
         });
 
         //add your data to the table here.
@@ -150,10 +191,10 @@ public class MainKud implements Initializable {
 
     private void datuaKargatu(){
         proba = new ArrayList<>();
-        proba.add(new Proba("Proba1",1));
-        proba.add(new Proba("Proba2",2));
-        proba.add(new Proba("Proba3",3));
-        proba.add(new Proba("Proba1",4));
+        proba.add(new Proba("Proba1",1,true));
+        proba.add(new Proba("Proba2",2,true));
+        proba.add(new Proba("Proba3",3, false));
+        proba.add(new Proba("Proba1",4, false));
         ObservableList<Proba> probak = FXCollections.observableArrayList(proba);
         tbl.setItems(probak);
     }

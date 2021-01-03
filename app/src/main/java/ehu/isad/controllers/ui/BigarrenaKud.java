@@ -4,6 +4,8 @@ import ehu.isad.App;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.net.URL;
@@ -18,9 +20,26 @@ public class BigarrenaKud implements Initializable {
     }
 
     @FXML
+    private TextField txt;
+
+    @FXML
+    private Button btn2;
+
+    @FXML
+    private Button btn1;
+
+    @FXML
     void onClick(ActionEvent event) throws IOException {
-        main.mainKargatu();
+        if(event.getSource()==btn1){
+            main.mainKargatu();
+        }
+        else if(event.getSource()==btn2){
+            txt.setText("CUCU!");
+        }
+
     }
+
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

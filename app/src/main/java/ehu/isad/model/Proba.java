@@ -10,8 +10,9 @@ public class Proba {
     private Image irudia;
     private String izena;
     private Integer zenb;
+    private Boolean bool;
 
-    public Proba(String izena, Integer zenb) {
+    public Proba(String izena, Integer zenb, Boolean bool) {
         String imagePath = Utils.lortuEzarpenak().getProperty("pathToImages")+".png";
         try {
             this.irudia = new Image(new FileInputStream(imagePath));
@@ -20,6 +21,7 @@ public class Proba {
         }
         this.izena = izena;
         this.zenb = zenb;
+        this.bool = bool;
     }
 
     public Image getIrudia() {
@@ -34,6 +36,10 @@ public class Proba {
         return zenb;
     }
 
+    public Boolean getBool() {
+        return bool;
+    }
+
     public void setIrudia(Image irudia) {
         this.irudia = irudia;
     }
@@ -44,6 +50,10 @@ public class Proba {
 
     public void setZenb(Integer zenb) {
         this.zenb = zenb;
+    }
+
+    public void setBool(Boolean bool) {
+        this.bool = bool;
     }
 
     @Override
