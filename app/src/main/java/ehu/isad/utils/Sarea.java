@@ -34,7 +34,6 @@ public class Sarea {
             BufferedReader in = new BufferedReader(new InputStreamReader(konexioa.getInputStream()));
             lerroa = in.readLine();
 
-            System.out.println(lerroa);
             in.close();
         } catch (MalformedURLException malformedURLException) {
             malformedURLException.printStackTrace();

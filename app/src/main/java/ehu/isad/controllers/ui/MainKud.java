@@ -114,10 +114,13 @@ public class MainKud implements Initializable {
 
 
         //Datu bat aldatzea
+        tblop.setCellFactory(
+                TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
         tblop.setOnEditCommit(
                 t->{
                     t.getTableView().getItems().get(t.getTablePosition().getRow())
                             .setZenb(t.getNewValue());
+
         });
 
         //add your data to the table here.

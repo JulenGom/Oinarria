@@ -69,7 +69,6 @@ public class MainKudeatzaile {
         String description = p.getDescription();
         Integer issues = p.getOpen_issues();
         String query = "INSERT INTO repos VALUES('"+izena+"','"+license+"','"+description+"','"+issues+"')";
-        System.out.println(query);
         DBKudeatzaileSQLite dbKudeatzaile = DBKudeatzaileSQLite.getInstantzia();
         dbKudeatzaile.execSQL(query);
     }
