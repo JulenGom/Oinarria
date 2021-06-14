@@ -65,10 +65,11 @@ public class MainKudeatzaile {
 
     public void proiektuaGorde(proiektuak p) {
         String izena = p.getFull_name();
-        String license = p.getLicense().toString();
+        String license = p.getLicense().getLicense();
         String description = p.getDescription();
         Integer issues = p.getOpen_issues();
         String query = "INSERT INTO repos VALUES('"+izena+"','"+license+"','"+description+"','"+issues+"')";
+        System.out.println(query);
         DBKudeatzaileSQLite dbKudeatzaile = DBKudeatzaileSQLite.getInstantzia();
         dbKudeatzaile.execSQL(query);
     }

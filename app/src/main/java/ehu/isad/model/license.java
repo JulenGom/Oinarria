@@ -1,18 +1,19 @@
 package ehu.isad.model;
 
 public class license {
-    private String izena;
+    private String name;
 
 
     @Override
     public String toString() {
         return "license{" +
-                "izena='" + izena + '\'' +
+                "name='" + name + '\'' +
                 '}';
     }
-    public license (String izena){this.izena = izena;}
+    public license (String izena){this.name = izena;}
+    public String getLicense(){return this.name;}
     public void setLicense(String izena){
-        this.izena = izena;
+        this.name = izena;
     }
 
 }

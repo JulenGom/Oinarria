@@ -92,8 +92,7 @@ public class MainKud implements Initializable {
             p.setIzena(izena);
             p = p.proiektuakLortu(izena);
            MainKudeatzaile.getInstance().proiektuaGorde(p);
-           ObservableList<proiektuak> proiektuak = FXCollections.observableArrayList(p);
-            tbl.setItems(proiektuak);
+            tbl.getItems().add(p);
         }
 
 
