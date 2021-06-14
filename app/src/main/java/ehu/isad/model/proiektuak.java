@@ -11,7 +11,16 @@ public class proiektuak {
     private Integer open_issues;
 
 
-    public proiektuak(){}
+    public String getFull_name() {
+        return full_name;
+    }
+
+    public proiektuak(String full_name, license license, String description, Integer open_issues){
+        this.full_name=full_name;
+        this.license = license;
+        this.description = description;
+        this.open_issues = open_issues;
+    }
     public license getDetails() {
         return license;
     }
@@ -31,12 +40,25 @@ public class proiektuak {
 
         Sarea s = new Sarea();
         String lerroa = s.URLtikIrakurri(izena);
+        System.out.println(lerroa);
 
         Gson gson = new Gson();
         proiektuak p = gson.fromJson(lerroa,proiektuak.class);
         p.full_name = izena;
         return p;
     }
+    public void setZenb(Integer zenb){ this.open_issues=zenb;}
 
+    public String getDescription() {
+        return description;
+    }
+
+    public license getLicense() {
+        return license;
+    }
+
+    public Integer getOpen_issues() {
+        return open_issues;
+    }
 }
 

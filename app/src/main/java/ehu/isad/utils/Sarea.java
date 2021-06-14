@@ -15,7 +15,7 @@ public class Sarea {
     public Sarea(){}
 
     public String URLtikIrakurri(String url){
-        return this.zatitu(this.datuakLortu(url),url);
+        return this.datuakLortu(url);
     }
 
     private String datuakLortu(String izena){
@@ -23,7 +23,7 @@ public class Sarea {
         URL github;
 
         try {
-            github = new URL("https://api.github.com/repos" + izena);
+            github = new URL("https://api.github.com/repos/" + izena);
             URLConnection konexioa = github.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(konexioa.getInputStream()));
             lerroa = in.readLine();
@@ -36,12 +36,12 @@ public class Sarea {
         return lerroa;
     }
 
-    private String zatitu(String lerroa, long isbn){
-        String[] zatiak = lerroa.split("ISBN:" + isbn+ "\": ");
-        lerroa = zatiak[1].substring(0, zatiak[1].length()-1);
-        System.out.println(lerroa);
-        return lerroa;
-    }
+//    private String zatitu(String lerroa, long isbn){
+//        String[] zatiak = lerroa.split("ISBN:" + isbn+ "\": ");
+//        lerroa = zatiak[1].substring(0, zatiak[1].length()-1);
+//        System.out.println(lerroa);
+//        return lerroa;
+//    }
 
 }
 

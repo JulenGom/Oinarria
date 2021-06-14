@@ -1,7 +1,9 @@
 package ehu.isad.controllers.ui;
 
 import ehu.isad.App;
+import ehu.isad.controllers.db.MainKudeatzaile;
 import ehu.isad.model.Proba;
+import ehu.isad.model.proiektuak;
 import ehu.isad.utils.Sarea;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -33,26 +35,26 @@ import java.util.ResourceBundle;
 public class MainKud implements Initializable {
     private App main;
 
-    private List<Proba> proba;
+    private List<proiektuak> proiektuak;
 
     public MainKud(App main) {
         this.main = main;
     }
 
     @FXML
-    private TableView<?> tbl;
+    private TableView<proiektuak> tbl;
 
     @FXML
-    private TableColumn<?, ?> tblfn;
+    private TableColumn<proiektuak, String> tblfn;
 
     @FXML
-    private TableColumn<?, ?> tblic;
+    private TableColumn<proiektuak, String> tblic;
 
     @FXML
-    private TableColumn<?, ?> tbldesc;
+    private TableColumn<proiektuak, String> tbldesc;
 
     @FXML
-    private TableColumn<?, ?> tblop;
+    private TableColumn<proiektuak, Integer> tblop;
 
     @FXML
     private Button btn;
@@ -65,153 +67,58 @@ public class MainKud implements Initializable {
 
     @FXML
     void onClick(ActionEvent event) throws IOException {
-       main.bigarrenaKargatu();
+       //Check botoia sakatu
+        //Datuak taulara gehitu
+        if(!text.getText().equals("")){
+            String izena = text.getText();
+            Kargatu(izena);
+        }
+
+    }
+
+    private void Kargatu(String izena) {
+        boolean dago = MainKudeatzaile.getInstance().datuBaseanDago(izena);
+        proiektuak p = null;
+        if(dago==true){
+            mezua.setText("Datubasean zegoen");
+        }else{
+            p = p.proiektuakLortu(izena);
+           MainKudeatzaile.getInstance().proiektuaGorde(p);
+        }
+        ObservableList<proiektuak> proiektuak = FXCollections.observableArrayList(p);
+        tbl.setItems(proiektuak);
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.comboBoxHasieratu();
         this.taulaHasieratu();
     }
-
-
-    private void comboBoxHasieratu(){
-        List<Proba> datuLista = new ArrayList<>();
-        datuLista.add(new Proba("Proba1",1, true));
-        datuLista.add(new Proba("Proba2",2, true));
-        ObservableList<Proba> datuak = FXCollections.observableArrayList(datuLista);
-    }
-
 
     private void taulaHasieratu(){
         tbl.setEditable(true);
         tblfn.setCellValueFactory(new PropertyValueFactory<>("Izena"));
-        tblic.setCellValueFactory(new PropertyValueFactory<>("Zenb"));
-        tbldesc.setCellValueFactory(new PropertyValueFactory<>("Bool"));
-        tblop.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        tblic.setCellValueFactory(new PropertyValueFactory<>("license"));
+        tbldesc.setCellValueFactory(new PropertyValueFactory<>("Description"));
+        tblop.setCellValueFactory(new PropertyValueFactory<>("open_issues"));
 
 
         //Datu bat aldatzea
-        clmn3.setOnEditCommit(
+        tblop.setOnEditCommit(
                 t->{
                     t.getTableView().getItems().get(t.getTablePosition().getRow())
                             .setZenb(t.getNewValue());
         });
 
-        //Irudia jarri
-        clmn1.setCellValueFactory(new PropertyValueFactory<>("Irudia"));
-        clmn1.setCellFactory(p -> new TableCell<>() {
-            public void updateItem(Image image, boolean empty) {
-                if (image != null && !empty){
-                    final ImageView imageview = new ImageView();
-                    imageview.setFitHeight(15);
-                    imageview.setFitWidth(20);
-                    imageview.setImage(image);
-                    setGraphic(imageview);
-                    setAlignment(Pos.CENTER);
-                    // tbData.refresh();
-                }else{
-                    setGraphic(null);
-                    setText(null);
-                }
-            };
-        });
-
-        //Check box
-        // ==== Active? (CheckBox) ===
-        clmn4.setCellValueFactory(new Callback<>() {
-
-            @Override
-            public ObservableValue<Boolean> call(TableColumn.CellDataFeatures<Proba, Boolean> param) {
-                Proba proba = param.getValue();
-
-                SimpleBooleanProperty booleanProp = new SimpleBooleanProperty(proba.getBool());
-
-                // Note: activeCol.setOnEditCommit(): Not work for
-                // CheckBoxTableCell.
-
-                // When "active?" column change.
-                booleanProp.addListener(new ChangeListener<Boolean>() {
-
-                    @Override
-                    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-                                        Boolean newValue) {
-                        proba.setBool(newValue);
-                    }
-                });
-                return booleanProp;
-            }
-        });
-
-        clmn4.setCellFactory(p -> {
-            CheckBoxTableCell<Proba, Boolean> cell = new CheckBoxTableCell<Proba, Boolean>();
-            cell.setAlignment(Pos.CENTER);
-            return cell;
-        });
-
         //add your data to the table here.
         datuaKargatu();
-
-
-        //Izen aldaketa gorde
-        clmn2.setOnEditCommit(
-                t->{
-                    t.getTableView().getItems().get(t.getTablePosition().getRow())
-                            .setIzena(t.getNewValue());
-                });
-
-        //Proba1 izena badu ez utzi editatzen
-        Callback<TableColumn<Proba, Integer>, TableCell<Proba, Integer>> defaultTextFieldCellFactory
-                = TextFieldTableCell.<Proba, Integer>forTableColumn(new IntegerStringConverter());
-
-        clmn3.setCellFactory(col -> {
-            TableCell<Proba, Integer> cell = defaultTextFieldCellFactory.call(col);
-
-            cell.setOnMouseClicked(event -> {
-                if (! cell.isEmpty()) {
-                    if (cell.getTableView().getSelectionModel().getSelectedItem().getIzena().equals("Proba1")) {
-                        cell.setEditable(false);
-                    }else {
-                        cell.setEditable(true);
-                    }
-                }
-            });
-
-            return cell ;
-        });
-
-
-        //Izena editatu
-        Callback<TableColumn<Proba, String>, TableCell<Proba, String >> defaultTextFieldCellFactoryIzena
-                = TextFieldTableCell.forTableColumn();
-
-        clmn2.setCellFactory(col -> {
-            TableCell<Proba, String> cell = defaultTextFieldCellFactoryIzena.call(col);
-            return cell ;
-        });
     }
 
 
     private void datuaKargatu(){
-        proba = new ArrayList<>();
-        proba.add(new Proba("Proba1",1,true));
-        proba.add(new Proba("Proba2",2,true));
-        proba.add(new Proba("Proba3",3, false));
-        proba.add(new Proba("Proba1",4, false));
-        ObservableList<Proba> probak = FXCollections.observableArrayList(proba);
-        tbl.setItems(probak);
+        List<proiektuak> proiektu = MainKudeatzaile.getInstance().lortuProiektuak();
+       ObservableList<proiektuak> proiektuak = FXCollections.observableArrayList(proiektu);
+       tbl.setItems(proiektuak);
     }
 
-
-    private void thread(){
-        Thread taskThread=new Thread(()->{
-            //Egin beharrekoa
-
-            Platform.runLater(()->{
-                System.out.println("runlater");
-            });
-        });
-        taskThread.start();
-    }
 }
 

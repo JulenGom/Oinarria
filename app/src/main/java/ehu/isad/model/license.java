@@ -10,4 +10,5 @@ public class license {
                 "izena='" + izena + '\'' +
                 '}';
     }
+    public license (String izena){this.izena = izena;}
 }
