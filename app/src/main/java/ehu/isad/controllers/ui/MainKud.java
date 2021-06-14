@@ -71,6 +71,7 @@ public class MainKud implements Initializable {
         //Datuak taulara gehitu
         if(!text.getText().equals("")){
             String izena = text.getText();
+            System.out.println(izena);
             Kargatu(izena);
         }
 
@@ -85,9 +86,11 @@ public class MainKud implements Initializable {
         }else{
             p = p.proiektuakLortu(izena);
            MainKudeatzaile.getInstance().proiektuaGorde(p);
+           ObservableList<proiektuak> proiektuak = FXCollections.observableArrayList(p);
+            tbl.setItems(proiektuak);
         }
-        ObservableList<proiektuak> proiektuak = FXCollections.observableArrayList(p);
-        tbl.setItems(proiektuak);
+
+
     }
 
     @Override
@@ -98,7 +101,7 @@ public class MainKud implements Initializable {
     private void taulaHasieratu(){
         mezua.setVisible(false);
         tbl.setEditable(true);
-        tblfn.setCellValueFactory(new PropertyValueFactory<>("Izena"));
+        tblfn.setCellValueFactory(new PropertyValueFactory<>("full_name"));
         tblic.setCellValueFactory(new PropertyValueFactory<>("license"));
         tbldesc.setCellValueFactory(new PropertyValueFactory<>("Description"));
         tblop.setCellValueFactory(new PropertyValueFactory<>("open_issues"));

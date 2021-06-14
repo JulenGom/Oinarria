@@ -12,7 +12,7 @@ public class DBKudeatzaileSQLite {
 
     private void conOpen(String dbpath) {
         try {
-            String url = "jdbc:sqlite:"+ dbpath ;
+            String url = "jdbc:sqlite:C:\\Users\\Usuario\\IdeaProjects\\OinarriaEkaina\\repos.db" ;
             conn = DriverManager.getConnection(url);
 
             System.out.println("Database connection established");

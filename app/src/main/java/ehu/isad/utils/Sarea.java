@@ -27,6 +27,7 @@ public class Sarea {
             URLConnection konexioa = github.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(konexioa.getInputStream()));
             lerroa = in.readLine();
+            System.out.println(lerroa);
             in.close();
         } catch (MalformedURLException malformedURLException) {
             malformedURLException.printStackTrace();

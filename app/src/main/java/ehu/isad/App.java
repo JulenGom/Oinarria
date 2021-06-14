@@ -32,17 +32,6 @@ public class App extends Application{
     }
 
 
-    private void ikonoaJarri(String izena){
-        String imagePath = Utils.lortuEzarpenak().getProperty("pathToImages")+".png";
-        try {
-            if(stage.getIcons().size()>0){
-                stage.getIcons().remove(0);
-            }
-            stage.getIcons().add(new Image(new FileInputStream(imagePath)));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 
 
     private void pantailakKargatu(String load) throws IOException {
@@ -75,7 +64,6 @@ public class App extends Application{
     public void bigarrenaKargatu() throws IOException {
         this.pantailakKargatu("bigarrena");
         stage.setTitle("Bigarren pantaila");
-        this.ikonoaJarri("");
         stage.setScene(sceneMain);
         stage.show();
     }
@@ -83,7 +71,6 @@ public class App extends Application{
     public void mainKargatu() throws IOException {
         this.pantailakKargatu("main");
         stage.setTitle("App Oinarria");
-        this.ikonoaJarri("");
         stage.setScene(sceneMain);
         stage.show();
     }
