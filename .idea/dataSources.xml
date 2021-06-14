@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="repos.sqlite" uuid="d4501068-9955-40ef-8674-09a696a19453">
+    <data-source source="LOCAL" name="repos" uuid="7ed3377b-68ee-4bfa-a83b-bfbeebbd4fd2">
       <driver-ref>sqlite.xerial</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.sqlite.JDBC</jdbc-driver>
-      <jdbc-url>jdbc:sqlite:D:\Descargas\repos.db</jdbc-url>
+      <jdbc-url>jdbc:sqlite:$PROJECT_DIR$/repos.db</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
       <libraries>
         <library>

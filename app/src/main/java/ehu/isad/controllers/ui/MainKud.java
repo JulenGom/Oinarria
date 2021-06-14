@@ -81,6 +81,7 @@ public class MainKud implements Initializable {
         proiektuak p = null;
         if(dago==true){
             mezua.setText("Datubasean zegoen");
+            mezua.setVisible(true);
         }else{
             p = p.proiektuakLortu(izena);
            MainKudeatzaile.getInstance().proiektuaGorde(p);
@@ -95,6 +96,7 @@ public class MainKud implements Initializable {
     }
 
     private void taulaHasieratu(){
+        mezua.setVisible(false);
         tbl.setEditable(true);
         tblfn.setCellValueFactory(new PropertyValueFactory<>("Izena"));
         tblic.setCellValueFactory(new PropertyValueFactory<>("license"));
@@ -116,8 +118,8 @@ public class MainKud implements Initializable {
 
     private void datuaKargatu(){
         List<proiektuak> proiektu = MainKudeatzaile.getInstance().lortuProiektuak();
-       ObservableList<proiektuak> proiektuak = FXCollections.observableArrayList(proiektu);
-       tbl.setItems(proiektuak);
+        ObservableList<proiektuak> proiektuak = FXCollections.observableArrayList(proiektu);
+        tbl.setItems(proiektuak);
     }
 
 }
