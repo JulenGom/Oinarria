@@ -39,7 +39,6 @@ public class MainKudeatzaile {
     public boolean datuBaseanDago(String izena){
 
         String query = "select * from repos where full_name='"+izena+"'";
-        System.out.println(query);
         DBKudeatzaileSQLite dbKudeatzaile = DBKudeatzaileSQLite.getInstantzia();
         ResultSet rs = dbKudeatzaile.execSQL(query);
         boolean emaitza = false;
@@ -50,7 +49,6 @@ public class MainKudeatzaile {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        System.out.println(emaitza);
         return emaitza;
     }
 

@@ -26,8 +26,12 @@ import javafx.scene.text.Text;
 import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -36,6 +40,7 @@ public class MainKud implements Initializable {
     private App main;
 
     private List<proiektuak> proiektuak;
+    private proiektuak p;
 
     public MainKud(App main) {
         this.main = main;
@@ -79,11 +84,11 @@ public class MainKud implements Initializable {
 
     private void Kargatu(String izena) {
         boolean dago = MainKudeatzaile.getInstance().datuBaseanDago(izena);
-        proiektuak p = null;
         if(dago==true){
             mezua.setText("Datubasean zegoen");
             mezua.setVisible(true);
         }else{
+            //errorea hemen sortzen da, ez dut denborarik izan konpontzeko
             p = p.proiektuakLortu(izena);
            MainKudeatzaile.getInstance().proiektuaGorde(p);
            ObservableList<proiektuak> proiektuak = FXCollections.observableArrayList(p);
@@ -92,6 +97,7 @@ public class MainKud implements Initializable {
 
 
     }
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

@@ -15,7 +15,15 @@ public class Sarea {
     public Sarea(){}
 
     public String URLtikIrakurri(String url){
-        return this.datuakLortu(url);
+        return this.zatitu(this.datuakLortu(url),url);
+    }
+
+    private String zatitu(String datuakLortu, String url) {
+        String[] zatiak = datuakLortu.split("{ id:"+ "}");
+        datuakLortu = zatiak[1].substring(0, zatiak[1].length()-1);
+        System.out.println(datuakLortu);
+
+        return datuakLortu;
     }
 
     private String datuakLortu(String izena){

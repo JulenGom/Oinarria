@@ -39,6 +39,7 @@ public class proiektuak {
     public proiektuak proiektuakLortu(String izena)  {
 
         Sarea s = new Sarea();
+        System.out.println(izena);
         String lerroa = s.URLtikIrakurri(izena);
         System.out.println(lerroa);
 
