@@ -14,17 +14,17 @@ public class Sarea {
 
     public Sarea(){}
 
-    public String URLtikIrakurri(long isbn){
-        return this.zatitu(this.datuakLortu(isbn),isbn);
+    public String URLtikIrakurri(String url){
+        return this.zatitu(this.datuakLortu(url),url);
     }
 
-    private String datuakLortu(long isbn){
+    private String datuakLortu(String izena){
         String lerroa = " ";
-        URL openLibrary;
+        URL github;
 
         try {
-            openLibrary = new URL("https://openlibrary.org/api/books?bibkeys=ISBN:" + isbn + "&jscmd=details&format=json");
-            URLConnection konexioa = openLibrary.openConnection();
+            github = new URL("https://api.github.com/repos" + izena);
+            URLConnection konexioa = github.openConnection();
             BufferedReader in = new BufferedReader(new InputStreamReader(konexioa.getInputStream()));
             lerroa = in.readLine();
             in.close();
@@ -43,16 +43,6 @@ public class Sarea {
         return lerroa;
     }
 
-    public void irudiaGorde(String url, String hFitxategia){
-        BufferedImage image;
-        try{
-            URL Url =new URL(url);
-            image = ImageIO.read(Url);
-            ImageIO.write(image, "png", new File(Utils.lortuEzarpenak().getProperty("pathToImages")+hFitxategia+".png"));
-        }catch(IOException e){
-            e.printStackTrace();
-        }
-    }
-
-
 }
+
+

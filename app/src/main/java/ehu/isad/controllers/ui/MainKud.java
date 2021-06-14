@@ -20,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.text.Text;
 import javafx.util.Callback;
 import javafx.util.converter.IntegerStringConverter;
 
@@ -39,25 +40,28 @@ public class MainKud implements Initializable {
     }
 
     @FXML
-    private ComboBox<Proba> cmbx;
+    private TableView<?> tbl;
 
     @FXML
-    private TableView<Proba> tbl;
+    private TableColumn<?, ?> tblfn;
 
     @FXML
-    private TableColumn<Proba, Image> clmn1;
+    private TableColumn<?, ?> tblic;
 
     @FXML
-    private TableColumn<Proba, String> clmn2;
+    private TableColumn<?, ?> tbldesc;
 
     @FXML
-    private TableColumn<Proba, Integer> clmn3;
-
-    @FXML
-    private TableColumn<Proba, Boolean> clmn4;
+    private TableColumn<?, ?> tblop;
 
     @FXML
     private Button btn;
+
+    @FXML
+    private TextField text;
+
+    @FXML
+    private Text mezua;
 
     @FXML
     void onClick(ActionEvent event) throws IOException {
@@ -76,16 +80,15 @@ public class MainKud implements Initializable {
         datuLista.add(new Proba("Proba1",1, true));
         datuLista.add(new Proba("Proba2",2, true));
         ObservableList<Proba> datuak = FXCollections.observableArrayList(datuLista);
-        cmbx.setItems(datuak);
     }
 
 
     private void taulaHasieratu(){
         tbl.setEditable(true);
-        clmn2.setCellValueFactory(new PropertyValueFactory<>("Izena"));
-        clmn3.setCellValueFactory(new PropertyValueFactory<>("Zenb"));
-        clmn4.setCellValueFactory(new PropertyValueFactory<>("Bool"));
-        clmn3.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
+        tblfn.setCellValueFactory(new PropertyValueFactory<>("Izena"));
+        tblic.setCellValueFactory(new PropertyValueFactory<>("Zenb"));
+        tbldesc.setCellValueFactory(new PropertyValueFactory<>("Bool"));
+        tblop.setCellFactory(TextFieldTableCell.forTableColumn(new IntegerStringConverter()));
 
 
         //Datu bat aldatzea
@@ -211,3 +214,4 @@ public class MainKud implements Initializable {
         taskThread.start();
     }
 }
+
