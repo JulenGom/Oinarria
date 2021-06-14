@@ -15,11 +15,7 @@ public class proiektuak {
         return full_name;
     }
 
-    public proiektuak(String full_name, license license, String description, Integer open_issues){
-        this.full_name=full_name;
-        this.license = license;
-        this.description = description;
-        this.open_issues = open_issues;
+    public proiektuak(){
     }
     public license getDetails() {
         return license;
@@ -36,10 +32,14 @@ public class proiektuak {
                 '}';
     }
 
+    public license getLicense() {
+        return license;
+    }
+
+
     public proiektuak proiektuakLortu(String izena)  {
 
         Sarea s = new Sarea();
-        System.out.println(izena);
         String lerroa = s.URLtikIrakurri(izena);
         System.out.println(lerroa);
 
@@ -54,12 +54,27 @@ public class proiektuak {
         return description;
     }
 
-    public license getLicense() {
-        return license;
-    }
+
 
     public Integer getOpen_issues() {
         return open_issues;
+    }
+
+    public void setIzena(String izena) {
+        this.full_name=izena;
+
+    }
+
+    public void setDescription(String description) {
+        this.description=description;
+    }
+
+    public void setIssues(Integer open_issues) {
+        this.open_issues=open_issues;
+    }
+
+    public void setLicense(String license) {
+        this.license=new license(license);
     }
 }
 

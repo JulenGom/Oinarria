@@ -29,7 +29,12 @@ public class MainKudeatzaile {
                 String description = rs.getString("description");
                 String license = rs.getString("license");
                 Integer open_issues = rs.getInt("open_issues");
-                emaitza.add(new proiektuak(izena,new license(license),description,open_issues));
+                proiektuak p = new proiektuak();
+                p.setIzena(izena);
+                p.setDescription(description);
+                p.setLicense(license);
+                p.setIssues(open_issues);
+                emaitza.add(p);
             }
         } catch(SQLException throwables){
             throwables.printStackTrace();

@@ -11,4 +11,8 @@ public class license {
                 '}';
     }
     public license (String izena){this.izena = izena;}
+    public void setLicense(String izena){
+        this.izena = izena;
+    }
+
 }

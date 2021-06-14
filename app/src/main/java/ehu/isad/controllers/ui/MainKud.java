@@ -40,7 +40,6 @@ public class MainKud implements Initializable {
     private App main;
 
     private List<proiektuak> proiektuak;
-    private proiektuak p;
 
     public MainKud(App main) {
         this.main = main;
@@ -89,6 +88,8 @@ public class MainKud implements Initializable {
             mezua.setVisible(true);
         }else{
             //errorea hemen sortzen da, ez dut denborarik izan konpontzeko
+            proiektuak p = new proiektuak();
+            p.setIzena(izena);
             p = p.proiektuakLortu(izena);
            MainKudeatzaile.getInstance().proiektuaGorde(p);
            ObservableList<proiektuak> proiektuak = FXCollections.observableArrayList(p);
